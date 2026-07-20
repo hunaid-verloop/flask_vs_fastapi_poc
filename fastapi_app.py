@@ -1,27 +1,18 @@
-import asyncio
 from fastapi import FastAPI
-from tasks import compute_fibanocci
+
+import httpx
 import uvicorn
 
 app = FastAPI()
 
+external_api = "http://localhost:6000"
 
-@app.get("/io")
-async def io_bound_task():
-    await asyncio.sleep(1)
-    return {"task": "iobound"}
+@app.get("/bot")
+async def bot_task():
+    async with httpx.AsyncClient() as client:
+        response = await client.get(external_api)
+    return response.json()
 
-@app.get("/cpu")
-async def cpu_bound_task():
-    compute_fibanocci(32)
-    return {"task": "cpu_bound"}
-
-
-@app.get("/io_and_cpu")
-async def mixed_task():
-    await asyncio.sleep(1)
-    compute_fibanocci(32)
-    return {"task": "io_and_cpu_bound"}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=3000)
