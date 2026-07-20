@@ -24,11 +24,13 @@ Evaluate the performance of Flask and FastAPI under an identical I/O-bound workl
 
 ### Results
 
-| Framework | Concurrent Users | Error Rate | Requests/sec |
-| --------- | ---------------: | ---------: | -----------: |
-| Flask     |              250 |        80% |           16 |
-| FastAPI   |             4500 |        30% |          479 |
-| FastAPI   |             5000 |        80% |          483 |
+| Framework | Concurrent Users | Error Rate | Requests/sec | MaxRPS before failure |
+| --------- | ---------------: | ---------: | -----------: | --------------------: |
+| Flask     |              250 |        80% |           16 |                  3.17 |
+| FastAPI   |             4500 |        30% |          479 |                 531.3 |
+| FastAPI   |             5000 |        80% |          483 |                 492.2 |
+
+
 
 ![images](./images/test_results_flask_vs_fastapi.png)
 ![images](./images/flask_250_test.png)
